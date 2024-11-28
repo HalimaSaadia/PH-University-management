@@ -4,7 +4,7 @@ export type TStatus = 'in-progress' | 'blocked';
 export type TUser = {
     id: string;
     password: string;
-    needsPasswordChange: boolean;
+    needsPasswordChange?: boolean;
     role: TRole;
     status: TStatus;
     isDeleted: boolean;
