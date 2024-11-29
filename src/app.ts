@@ -4,12 +4,14 @@ import cors from 'cors'
 import { userRoute } from "./app/modules/user/user.route"
 import { studentRoute } from "./app/modules/students/student.route"
 import { globalErrorHandler } from "./app/middleware/globalErrorHandler"
+import { notFound } from "./app/middleware/notFound"
+import router from "./app/routes"
 
 app.use(express.json())
 app.use(cors())
 
-app.use("/api/students", studentRoute)
-app.use("/api/users", userRoute)
+app.use("/api", router)
+
 
 app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
@@ -17,5 +19,6 @@ app.get('/', (req:Request, res:Response) => {
 
 
 app.use(globalErrorHandler)
+app.use(notFound)
 export default app
 
