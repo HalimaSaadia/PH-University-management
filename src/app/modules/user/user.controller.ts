@@ -1,5 +1,13 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { createNewStudentInDB, getAllUserFromDB } from "./user.service";
+
+
+const catchAsync = (fn:RequestHandler) => {
+  return (req:Request, res:Response, next:NextFunction)=> {
+    Promise.resolve(fn(req, res, next)).catch(err => next(err))
+  }
+ 
+}
 
 export const getAllUser = async (
   req: Request,
@@ -18,12 +26,12 @@ export const getAllUser = async (
   }
 };
 
-export const createNewStudent = async (
+export const createNewStudent  = catchAsync(async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  try {
+
     const { password, student: studentData } = req.body;
     const result = await createNewStudentInDB(password, studentData);
     res.status(200).send({
@@ -31,7 +39,5 @@ export const createNewStudent = async (
       message: "Successfully Created Student",
       data: result,
     });
-  } catch (err) {
-    next(err);
-  }
-};
+ 
+})
