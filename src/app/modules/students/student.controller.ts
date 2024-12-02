@@ -5,38 +5,19 @@ import {
   getStudentsFromDB,
 } from './student.service'
 import studentValidationSchema from './student.validation'
+import catchAsync from '../../utils/catchAsync'
 
-// export const createStudent = async (req: Request, res: Response) => {
-//   try {
-//     const data = req.body
-//     const studentData = studentValidationSchema.parse(data)
-//     const result = await createStudentInDB(studentData)
-//     res.send({
-//       success: true,
-//       message: 'Student Created Successfully',
-//       data: result,
-//     })
-//   } catch (err) {
-//     res.status(500).json({
-//       success: false,
-//       message: 'Failed to Create Student',
-//       error: err,
-//     })
-//   }
-// }
 
-export const getStudents = async (req: Request, res: Response, next:NextFunction) => {
-  try {
-    const result = await getStudentsFromDB()
-    res.send({
-      success: true,
-      message: 'Retrieve Student Data Successfully',
-      data: result,
-    })
-  } catch (err) {
-    next(err)
-  }
-}
+
+export const getStudents = catchAsync(async (req: Request, res: Response, next:NextFunction) => {
+  const result = await getStudentsFromDB()
+  res.send({
+    success: true,
+    message: 'Retrieve Student Data Successfully',
+    data: result,
+  })
+} 
+)
 export const getSingleStudent = async (req: Request, res: Response, next:NextFunction) => {
   try {
     const result = await getSingleStudentFromDB(req.params.id)
