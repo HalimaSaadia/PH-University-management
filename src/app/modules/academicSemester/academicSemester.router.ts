@@ -9,3 +9,5 @@ router.post(
   validateRequest(createStudentValidationSchema),
   createAcademicSemester
 );
+
+export const academicSemesterRoute = router
