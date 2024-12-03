@@ -5,27 +5,9 @@ import {
   TAcademicSemesterName,
   TMonth,
 } from "./academicSemester.interface";
+import { academicSemesterCode, academicSemesterMonths, academicSemesterName } from "./academicSemester.constant";
 
-const academicSemesterName: TAcademicSemesterName[] = [
-  "Autumn",
-  "Summer",
-  "Fall",
-];
-const academicSemesterCode: TAcademicSemesterCode[] = ["01", "02", "03"];
-const academicSemesterMonths: TMonth[] = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+
 
 const AcademicSemesterSchema = new Schema<TAcademicSemester>(
   {
