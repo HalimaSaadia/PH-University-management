@@ -19,6 +19,10 @@ const userSchema = new Schema<TUser>({
   },
   needsPasswordChange: Boolean,
   isDeleted: Boolean,
+  isActive:{
+    type: String,
+    enum:["active", "blocked"]
+  },
   status: {
     type: String,
     enum: ["in-progress", "blocked"],

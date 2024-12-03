@@ -1,8 +1,5 @@
 import mongoose from 'mongoose'
-import { TStudent } from './student.interface'
 import { StudentModel } from './student.mdel'
-
-
 
 export const getStudentsFromDB = async () => {
   const result = await StudentModel.find({})
@@ -11,7 +8,6 @@ export const getStudentsFromDB = async () => {
 
 export const getSingleStudentFromDB = async (id: string) => {
   const result = await StudentModel.findOne({_id:id})
-  console.log(result)
   return result
 }
 

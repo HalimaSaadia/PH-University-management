@@ -1,5 +1,7 @@
 export type TRole = "admin" | "student" | "faculty";
 export type TStatus = "in-progress" | "blocked";
+export type TIsActive = "active" | "blocked";
+
 
 export type TUser = {
   id: string;
@@ -8,6 +10,7 @@ export type TUser = {
   role: TRole;
   status: TStatus;
   isDeleted: boolean;
+  isActive:TIsActive
 };
 
 export type NewUser = {

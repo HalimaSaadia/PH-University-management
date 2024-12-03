@@ -1,8 +1,14 @@
-import express from "express"
-import { createNewStudent, getAllUser } from "./user.controller"
-const router = express.Router()
+import express from "express";
+import { createNewStudent, getAllUser } from "./user.controller";
+import createStudentValidationSchema from "../students/student.validation";
+import { validateRequest } from "../../utils/validateRequest";
+const router = express.Router();
 
-router.get("/", getAllUser)
-router.post("/create-student", createNewStudent)
+router.get("/", getAllUser);
+router.post(
+  "/create-student",
+  validateRequest(createStudentValidationSchema),
+  createNewStudent
+);
 
-export  const userRoute = router 
+export const userRoute = router;

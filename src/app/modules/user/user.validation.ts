@@ -1,6 +1,4 @@
 import {z} from "zod"
-import { TUser } from "./user.interface"
-
 
 export const userValidationSchema = z.object({
     password: z.string().max(20, {message: "Password Length can not be more than 20"}),
