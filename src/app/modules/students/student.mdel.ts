@@ -1,4 +1,4 @@
-import {  Schema, model } from "mongoose";
+import mongoose, {  Schema, model } from "mongoose";
 import { TGuardian, TStudent } from "./student.interface";
 import validator from "validator";
 import config from "../../config";
@@ -50,29 +50,13 @@ const studentSchema = new Schema<TStudent>(
       required: [true, "gender is required"],
     },
     guardian: guardian,
+    admissionSemester:{type: Schema.Types.ObjectId,ref:"academicSemester"},
     isDeleted: { type: Boolean, default: false },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-// studentSchema.pre("save", async function (next) {
-//   try {
-//     this.address = await bcrypt.hash(this.address, Number(config.salt));
-//     next();
-//   } catch (error) {
-//     next(error as CallbackError);
-//   }
-// });
-// studentSchema.pre('aggregate', async function (next){
-//   console.log(this)
-//   this.pipeline().unshift({$match:{isDeleted: false}})
-//   next()
-// })
 
-// studentSchema.pre("findOne", function(next){
-//   this.findOne({isDeleted:false})
-//   next()
-// })
 studentSchema.virtual("fullname").get(function () {
   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
 });

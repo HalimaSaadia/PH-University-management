@@ -26,5 +26,6 @@ export type TStudent = {
   email: string;
   avatar?: string;
   guardian: TGuardian;
+  admissionSemester: Types.ObjectId,
   isDeleted: boolean;
 };

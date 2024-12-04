@@ -33,6 +33,7 @@ const createStudentValidationSchema = z.object({
       motherContact: z.string(),
       motherOccupation: z.string(),
     }),
+    admissionSemester:z.string(),
     isDeleted: z.boolean().optional().default(false),
   }),
 });

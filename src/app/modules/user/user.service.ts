@@ -14,9 +14,10 @@ export const createNewStudentInDB = async (
   studentData: TStudent
 ) => {
   const user: Partial<TUser> = {};
+  const generateStudentId = () => {}
   user.password = password || (config.default_password as string);
   user.role = "student";
-  user.id = "203010000";
+  user.id = generateStudentId();
   const newUser = await UserModel.create(user);
   if (Object.keys(newUser).length) {
     studentData.id = newUser.id;
