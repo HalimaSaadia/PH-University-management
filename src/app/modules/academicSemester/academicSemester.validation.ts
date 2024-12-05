@@ -8,7 +8,7 @@ export const AcademicSemesterValidation = z.object({
   code: z.enum(["01", "02", "03"], {
     required_error: "Code is required",
   }),
-  year: z.date(),
+  year: z.string(),
   startMonth: z.enum([...academicSemesterMonths] as [string, ...string[]]),
   endMonth: z.enum([...academicSemesterMonths] as [string, ...string[]]),
 });
