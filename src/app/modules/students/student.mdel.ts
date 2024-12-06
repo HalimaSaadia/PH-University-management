@@ -53,7 +53,7 @@ const studentSchema = new Schema<TStudent>(
     admissionSemester:{type: Schema.Types.ObjectId,ref:"academicSemester"},
     isDeleted: { type: Boolean, default: false },
   },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  {timestamps:true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 
