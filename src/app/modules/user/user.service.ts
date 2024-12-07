@@ -26,7 +26,7 @@ export const createNewStudentInDB = async (
     studentData.admissionSemester
   );
  
-  user.id = await generateStudentId(admissionSemester);
+  user.id = await generateStudentId(admissionSemester as TAcademicSemester);
   const newUser = await UserModel.create(user);
   if (Object.keys(newUser).length) {
     studentData.id = newUser.id;
