@@ -16,9 +16,9 @@ type TStudentName = {
 };
 
 export type TStudent = {
-  id:string;
+  id: string;
   name: TStudentName;
-  user:Types.ObjectId;
+  user: Types.ObjectId;
   contact: string;
   emergencyContact: string;
   gender: "male" | "female";
@@ -26,6 +26,7 @@ export type TStudent = {
   email: string;
   avatar?: string;
   guardian: TGuardian;
-  admissionSemester: Types.ObjectId,
+  admissionSemester: Types.ObjectId;
+  academicDepartment: Types.ObjectId;
   isDeleted: boolean;
 };

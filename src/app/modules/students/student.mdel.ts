@@ -1,8 +1,6 @@
-import mongoose, {  Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import { TGuardian, TStudent } from "./student.interface";
 import validator from "validator";
-import config from "../../config";
-import { CallbackError } from "mongoose";
 
 const guardian = new Schema<TGuardian>({
   fatherContact: { type: String, required: true },
@@ -16,7 +14,7 @@ const guardian = new Schema<TGuardian>({
 const studentSchema = new Schema<TStudent>(
   {
     id: String,
-    user:Schema.Types.ObjectId,
+    user: Schema.Types.ObjectId,
     name: {
       firstName: {
         type: String,
@@ -50,12 +48,15 @@ const studentSchema = new Schema<TStudent>(
       required: [true, "gender is required"],
     },
     guardian: guardian,
-    admissionSemester:{type: Schema.Types.ObjectId,ref:"academicSemester"},
+    admissionSemester: { type: Schema.Types.ObjectId, ref: "AcademicSemester" },
+    academicDepartment: {
+      type: Schema.Types.ObjectId,
+      ref: "AcademicDepartment",
+    },
     isDeleted: { type: Boolean, default: false },
   },
-  {timestamps:true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
-
 
 studentSchema.virtual("fullname").get(function () {
   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
