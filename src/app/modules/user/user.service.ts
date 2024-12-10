@@ -18,6 +18,7 @@ export const createNewStudentInDB = async (
   password: string,
   studentData: TStudent
 ) => {
+
   const user: Partial<TUser> = {};
   user.password = password || (config.default_password as string);
   user.role = "student";

@@ -3,6 +3,7 @@ import {
   deleteStudentFromDB,
   getSingleStudentFromDB,
   getStudentsFromDB,
+  updateStudentInDB,
 } from "./student.service";
 import catchAsync from "../../utils/catchAsync";
 
@@ -32,6 +33,21 @@ export const getSingleStudent = async (
     next(err);
   }
 };
+
+export const updateStudent = async(req:Request, res:Response, next:NextFunction)=> {
+  try {
+    const studentData = req.body
+    const {id} = req.params
+    const result = await updateStudentInDB(id,studentData);
+    res.send({
+      success: true,
+      message: "Update Student Data Successfully",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
 
 export const deleteStudent = async (
   req: Request,
