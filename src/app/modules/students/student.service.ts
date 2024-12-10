@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { StudentModel } from "./student.mdel";
+import { TStudent } from "./student.interface";
 
 export const getStudentsFromDB = async () => {
   const result = await StudentModel.find({});
@@ -17,6 +18,10 @@ export const getSingleStudentFromDB = async (id: string) => {
   return result;
 };
 
+export const updateStudentInDB = async(id:string, studentData:Partial<TStudent> )=>{
+
+}
+
 export const deleteStudentFromDB = async (id: string) => {
   const result = await StudentModel.updateOne(
     {
@@ -26,3 +31,4 @@ export const deleteStudentFromDB = async (id: string) => {
   );
   return result;
 };
+

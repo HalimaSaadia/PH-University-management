@@ -19,16 +19,16 @@ export const createNewStudentInDB = async (
   studentData: TStudent
 ) => {
   const user: Partial<TUser> = {};
-
   user.password = password || (config.default_password as string);
   user.role = "student";
-
   const admissionSemester = await AcademicSemesterModel.findById(
     studentData.admissionSemester
   );
+  if (!admissionSemester) {
+    throw new AppError(404, "Semester Not Found");
+  }
   const session = await mongoose.startSession();
   try {
-    
     session.startTransaction();
     user.id = await generateStudentId(admissionSemester as TAcademicSemester);
     const newUser = await UserModel.create([user], { session });
@@ -38,7 +38,6 @@ export const createNewStudentInDB = async (
     studentData.id = newUser[0].id;
     studentData.user = newUser[0]._id;
     const newStudent = await StudentModel.create([studentData], { session });
-
     if (!newStudent.length) {
       throw new AppError(httpStatus.BAD_REQUEST, "Failed to create Student");
     }
@@ -48,7 +47,7 @@ export const createNewStudentInDB = async (
     return newStudent;
   } catch (err) {
     await session.abortTransaction();
-    await session.endSession()
-    throw new Error("Failed to create student")
+    await session.endSession();
+    throw err;
   }
 };

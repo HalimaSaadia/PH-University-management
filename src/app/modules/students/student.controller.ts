@@ -4,7 +4,6 @@ import {
   getSingleStudentFromDB,
   getStudentsFromDB,
 } from "./student.service";
-import createStudentValidationSchema from "./student.validation";
 import catchAsync from "../../utils/catchAsync";
 
 export const getStudents = catchAsync(
