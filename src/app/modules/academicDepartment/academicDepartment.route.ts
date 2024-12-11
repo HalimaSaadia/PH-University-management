@@ -16,6 +16,7 @@ router.post(
   createAcademicDepartment,
 );
 
+router.get('/', getAllAcademicDepartments);
 router.get('/:departmentId',getSingleAcademicDepartment);
 
 router.patch(
@@ -26,6 +27,5 @@ router.patch(
   updateAcademicDepartment,
 );
 
-router.get('/', getAllAcademicDepartments);
 
 export const AcademicDepartmentRoutes = router;
