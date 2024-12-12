@@ -4,6 +4,8 @@ import config from "../config";
 import { TErrorSource } from "../interface/error";
 import { handleZodError } from "../errors/zodError";
 import { handleValidationError } from "../errors/ValidationError";
+import { handleCastError } from "../errors/castError";
+import { handleDuplicateError } from "../errors/duplicateError";
 
 export const globalErrorHandler: ErrorRequestHandler = (
   error,
@@ -36,6 +38,19 @@ export const globalErrorHandler: ErrorRequestHandler = (
 
   }
 
+  if(error?.name === "CastError") {
+    const simplifiedError = handleCastError(error);
+    status = simplifiedError.status;
+    message = simplifiedError.message;
+    errorSources = simplifiedError.errorSources
+  }
+  if(error?.code === 11000){
+    const simplifiedError = handleDuplicateError(error);
+    console.log(simplifiedError)
+    status = simplifiedError.status;
+    message = simplifiedError.message;
+    errorSources = simplifiedError.errorSources
+  }
   res.status(status).json({
     success: false,
     message,
