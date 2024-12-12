@@ -7,7 +7,6 @@ import { AcademicDepartmentRoutes } from "../modules/academicDepartment/academic
 
 
 const router = Router()
-
 router.use("/students", studentRoute)
 router.use("/users",userRoute)
 router.use("/academic-semesters",academicSemesterRoute)

@@ -10,7 +10,10 @@ app.use(cors())
 
 app.use("/api", router)
 
-
+const test = async(req:Request, res:Response) => {
+Promise.reject()
+}
+test()
 app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
 })

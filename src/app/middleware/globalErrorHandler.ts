@@ -46,7 +46,6 @@ export const globalErrorHandler: ErrorRequestHandler = (
   }
   if(error?.code === 11000){
     const simplifiedError = handleDuplicateError(error);
-    console.log(simplifiedError)
     status = simplifiedError.status;
     message = simplifiedError.message;
     errorSources = simplifiedError.errorSources
