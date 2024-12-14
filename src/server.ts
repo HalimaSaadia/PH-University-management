@@ -33,6 +33,6 @@ process.on("uncaughtException", ()=> {
   console.log("uncaughtException Detected 😐")
   process.exit(1)
 })
-// console.log(x)
+console.log(x)
 
-// Promise.reject()
+Promise.reject()
