@@ -9,7 +9,8 @@ import catchAsync from "../../utils/catchAsync";
 
 export const getStudents = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await getStudentsFromDB();
+    const query = req.query
+    const result = await getStudentsFromDB(query);
     res.send({
       success: true,
       message: "Retrieve Student Data Successfully",

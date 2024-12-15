@@ -2,8 +2,13 @@ import mongoose from "mongoose";
 import { StudentModel } from "./student.mdel";
 import { TStudent } from "./student.interface";
 
-export const getStudentsFromDB = async () => {
-  const result = await StudentModel.find({});
+export const getStudentsFromDB = async (query:Record<string, unknown>) => {
+  const searchTerm = query.searchTerm || ""; 
+  const result = await StudentModel.find({
+    $or:["email", "name.lastName","name.firstName", "name.middleName"].map((field)=> ({
+      [field]:{$regex: searchTerm, $options:"i"}
+    }))
+  });
   return result;
 };
 
