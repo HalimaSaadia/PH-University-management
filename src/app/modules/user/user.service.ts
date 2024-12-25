@@ -22,6 +22,7 @@ export const createNewStudentInDB = async (
   const user: Partial<TUser> = {};
   user.password = password || (config.default_password as string);
   user.role = "student";
+  console.log(studentData.admissionSemester)
   const admissionSemester = await AcademicSemesterModel.findById(
     studentData.admissionSemester
   );

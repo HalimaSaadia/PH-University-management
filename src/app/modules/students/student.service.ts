@@ -2,14 +2,28 @@ import mongoose from "mongoose";
 import { StudentModel } from "./student.mdel";
 import { TStudent } from "./student.interface";
 
-export const getStudentsFromDB = async (query:Record<string, unknown>) => {
-  const searchTerm = query.searchTerm || ""; 
-  const result = await StudentModel.find({
-    $or:["email", "name.lastName","name.firstName", "name.middleName"].map((field)=> ({
-      [field]:{$regex: searchTerm, $options:"i"}
-    }))
+export const getStudentsFromDB = async (query: Record<string, unknown>) => {
+  const searchTerm = query.searchTerm || "";
+  const queryObj = { ...query };
+  const excludedFields = ["searchTerm", "limit", "page","fields"];
+  excludedFields.forEach((field) => delete queryObj[field]);
+  const searchQuery = StudentModel.find({
+    $or: ["name", "name.firstName", "name.middleName", "name.lastName"].map(
+      (field) => ({
+        [field]: { $regex: searchTerm, $options: "i" },
+      })
+    ),
   });
-  return result;
+  const filterQuery = searchQuery.find(queryObj);
+  const page = query.page || 1;
+  const limit = Number(query.limit) || 1;
+  const skip = Number(page) * limit;
+  const paginateQuery = filterQuery.skip(skip);
+  const limitQuery =  paginateQuery.limit(Number(limit));
+ const fields  = query?.fields ? query.fields.split(",").join(" ")  : "-__v"
+
+ const fieldQuery = await limitQuery.select(fields)
+  return fieldQuery;
 };
 
 export const getSingleStudentFromDB = async (id: string) => {
@@ -50,7 +64,7 @@ export const updateStudentInDB = async (
     runValidators: true,
   });
 
-  return result
+  return result;
 };
 
 export const deleteStudentFromDB = async (id: string) => {

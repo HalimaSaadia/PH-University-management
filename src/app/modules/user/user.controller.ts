@@ -26,7 +26,6 @@ export const createNewStudent  = catchAsync(async (
   req: Request,
   res: Response,
 ) => {
-
     const { password, student: studentData } = req.body;
     const result = await createNewStudentInDB(password, studentData);
     res.status(200).send({
