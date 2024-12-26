@@ -33,7 +33,7 @@ return result
 };
 
 export const getSingleStudentFromDB = async (id: string) => {
-  const result = await StudentModel.findOne({ _id: id })
+  const result = await StudentModel.findById(id)
     .populate("admissionSemester")
     .populate({
       path: "academicDepartment",
@@ -74,10 +74,8 @@ export const updateStudentInDB = async (
 };
 
 export const deleteStudentFromDB = async (id: string) => {
-  const result = await StudentModel.updateOne(
-    {
-      _id: new mongoose.Types.ObjectId(id),
-    },
+  const result = await StudentModel.findByIdAndUpdate(
+    id,
     { $set: { isDeleted: true } }
   );
   return result;
