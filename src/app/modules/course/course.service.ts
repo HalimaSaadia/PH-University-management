@@ -19,7 +19,23 @@ export const getAllCoursesFromDB = async (query: Record<string, unknown>) => {
 };
 
 export const getSingleCourseFromDB = async (id: string) => {
-  const result = await courseModel.findById(id);
+  const result = await courseModel.findById(id).populate('preRequisiteCourses.course');
+  return result;
+};
+
+export const updateCourseIntoDB = async (
+  id: string,
+  payload: Partial<TCourse>,
+) => {
+  const {preRequisiteCourses, ...remainingData} = payload
+  const result = await courseModel.findOneAndUpdate(
+    { _id: id },
+    remainingData,
+    {
+      new: true,
+      runValidators:true
+    },
+  );
   return result;
 };
 

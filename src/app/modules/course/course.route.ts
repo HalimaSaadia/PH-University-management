@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { validateRequest } from "../../utils/validateRequest";
-import { courseValidationSchema } from "./course.validation";
+import { courseUpdateValidationSchema, courseValidationSchema } from "./course.validation";
 import {
   createCourse,
   getAllCourses,
   getSingleCourse,
+  updateCourse,
 } from "./course.controller";
 
 const router = Router();
@@ -16,5 +17,6 @@ router.post(
 );
 
 router.get("/:id", getSingleCourse);
+router.put("/:id", validateRequest(courseUpdateValidationSchema), updateCourse);
 
 export const CoursesRoutes = router;
