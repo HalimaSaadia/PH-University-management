@@ -17,7 +17,8 @@ export const createCourse = catchAsync(async (req, res) => {
 });
 
 export const getAllCourses = catchAsync(async (req, res) => {
-  const result = await getAllCoursesFromDB();
+  const query = req.query
+  const result = await getAllCoursesFromDB(query);
 
   res.status(200).send({
     success: true,
